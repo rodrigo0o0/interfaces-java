@@ -6,7 +6,7 @@ import model.entities.Invoice;
 public class RentalService {
 	private double pricePerHour;
 	private double pricePerDay;
-	private BrazilTaxService brazilTaxService;
+	private TaxService taxService;
 	
 	public void processInvoice(CarRental carRental) {
 		//getTime pega o valor em milissegundos da data
@@ -21,7 +21,7 @@ public class RentalService {
 		}else {
 			basicPayment = Math.ceil(hours/24) * pricePerDay;
 		}
-		double tax = brazilTaxService.tax(basicPayment);
+		double tax = taxService.tax(basicPayment);
 		carRental.setInvoice(new Invoice(basicPayment,tax));
 	}
 	
@@ -30,21 +30,21 @@ public class RentalService {
 	}
 
 
-	public RentalService(double pricePerHour, double pricePerDay, BrazilTaxService brazilTaxService) {
+	public RentalService(double pricePerHour, double pricePerDay, TaxService taxService) {
 		this.pricePerHour = pricePerHour;
 		this.pricePerDay = pricePerDay;
-		this.brazilTaxService = brazilTaxService;
+		this.taxService = taxService;
 	}
 
 	public RentalService() {
 	}
 	
-	public BrazilTaxService getBrazilTaxService() {
-		return brazilTaxService;
+	public TaxService getTaxService() {
+		return taxService;
 	}
 
-	public void setBrazilTaxService(BrazilTaxService brazilTaxService) {
-		this.brazilTaxService = brazilTaxService;
+	public void setBrazilTaxService(TaxService taxService) {
+		this.taxService = taxService;
 	}
 
 	public void setPricePerHour(double pricePerHour) {
